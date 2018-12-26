@@ -51,7 +51,7 @@ router.put("/:id", async (req, res) => {
   if (!author)
     return res
       .status(404)
-      .send({ status: "Error", response: "No Author with that ID exists" });
+      .send({ status: "Error", response: "No author with that ID exists" });
 
   res.send({ status: "Success", response: author });
 });

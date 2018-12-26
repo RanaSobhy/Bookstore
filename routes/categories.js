@@ -50,7 +50,7 @@ router.put("/:id", async (req, res) => {
   if (!category)
     return res
       .status(404)
-      .send({ status: "Error", response: "No category with that id exists" });
+      .send({ status: "Error", response: "No category with that ID exists" });
 
   res.send({ status: "Success", response: category });
 });

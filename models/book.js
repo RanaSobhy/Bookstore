@@ -87,6 +87,7 @@ class Book {
       book.pagesNumber = newBook.pagesNumber || book.pagesNumber;
       book.image = newBook.image || book.image;
       book.book = newBook.book || book.book;
+      book.category = newBook.category || book.category;
     }
 
     await this.updateBooks(books);

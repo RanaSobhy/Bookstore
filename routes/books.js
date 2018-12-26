@@ -100,7 +100,7 @@ router.put("/:id", async (req, res) => {
   if (!book)
     return res
       .status(404)
-      .send({ status: "Error", response: "no book with that id exists" });
+      .send({ status: "Error", response: "No book with that ID exists" });
 
   res.send({ status: "Success", response: book });
 });
