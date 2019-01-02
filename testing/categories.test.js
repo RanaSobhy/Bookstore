@@ -2,9 +2,7 @@ const request = require("supertest");
 var validateId = require("uuid-validate");
 const expect = require("expect");
 
-var {
-  app
-} = require("../app");
+var { app } = require("../app");
 
 describe("Categories", () => {
   it("should return all categories", done => {
@@ -58,14 +56,14 @@ describe("Categories", () => {
       .end(done);
   });
 
-  it('should create a category', (done) => {
+  it("should create a category", done => {
     request(app)
       .put("/api/categories")
       .send({
         name: "Ahmed Sobhy"
       })
       .expect(200)
-      .expect((res) => {
+      .expect(res => {
         expect(res.body).toMatchObject({
           status: "Success",
           response: {
@@ -73,6 +71,22 @@ describe("Categories", () => {
           }
         });
         expect(validateId(res.body.response.id)).toBeTruthy();
+      })
+      .end(done);
+  });
+
+  it("should reject creating a category due to it already existing", done => {
+    request(app)
+      .put("/api/categories")
+      .send({
+        name: "Roger Lakin"
+      })
+      .expect(400)
+      .expect(res => {
+        expect(res.body).toMatchObject({
+          status: "Error",
+          response: "Category already exists"
+        });
       })
       .end(done);
   });
@@ -157,11 +171,11 @@ describe("Categories", () => {
       .end(done);
   });
 
-  it('should delete a category', (done) => {
+  it("should delete a category", done => {
     request(app)
       .delete("/api/categories/540a7938-fe30-4e07-bd84-932745aa8be5")
       .expect(200)
-      .expect((res) => {
+      .expect(res => {
         expect(res.body).toEqual({
           status: "Success",
           response: "Category removed"
@@ -169,7 +183,6 @@ describe("Categories", () => {
       })
       .end(done);
   });
-
 
   it("should reject deleting a category due to invalid ID", done => {
     request(app)
