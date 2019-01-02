@@ -35,6 +35,11 @@ router.put("/", async (req, res) => {
       .status(404)
       .send({ status: "Error", response: "Author doesn't exist" });
   }
+  const { errorExists } = await Book.duplicate(req.body);
+
+  if (errorExists)
+    return res.status(400).send({ status: "Error", response: errorExists });
+
   const book = new Book(req.body);
 
   await Book.save();

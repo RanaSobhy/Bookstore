@@ -10,6 +10,11 @@ router.put("/", async (req, res) => {
       .status(400)
       .send({ status: "Error", response: error.details[0].message });
 
+  const { errorExists } = await Author.duplicate(req.body);
+
+  if (errorExists)
+    return res.status(400).send({ status: "Error", response: errorExists });
+
   const author = new Author(req.body);
 
   await Author.save();

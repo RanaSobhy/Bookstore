@@ -104,6 +104,14 @@ class Category {
     await this.updateCategories(categories);
     Category.toAdd = [];
   }
+
+  static async duplicate(category) {
+    const categories = await this.find({ name: category.name });
+    if (categories.length > 0) {
+      return { errorExists: "Category already exists" };
+    }
+    return { errorExists: undefined };
+  }
 }
 
 Category.toAdd = [];

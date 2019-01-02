@@ -106,6 +106,14 @@ class Author {
     await this.updateAuthors(authors);
     Author.toAdd = [];
   }
+
+  static async duplicate(author) {
+    const authors = await this.find({ name: author.name });
+    if (authors.length > 0) {
+      return { errorExists: "Author already exists" };
+    }
+    return { errorExists: undefined };
+  }
 }
 
 Author.toAdd = [];

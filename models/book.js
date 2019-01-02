@@ -107,6 +107,14 @@ class Book {
     await this.updateBooks(books);
     Book.toAdd = [];
   }
+
+  static async duplicate(book) {
+    const books = await this.find({ title: book.title, isbn: book.isbn });
+    if (books.length > 0) {
+      return { errorExists: "Book already exists" };
+    }
+    return { errorExists: undefined };
+  }
 }
 
 Book.toAdd = [];

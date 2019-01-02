@@ -10,6 +10,11 @@ router.put("/", async (req, res) => {
       .status(400)
       .send({ status: "Error", response: error.details[0].message });
 
+  const { errorExists } = await Category.duplicate(req.body);
+
+  if (errorExists)
+    return res.status(400).send({ status: "Error", response: errorExists });
+
   let category = new Category(req.body);
   await Category.save();
   res.send({ status: "Success", response: category });
