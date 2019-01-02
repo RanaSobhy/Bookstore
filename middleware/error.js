@@ -1,23 +1,11 @@
-const winston = require("winston");
-
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({
-      filename: "error.log",
-      level: "error"
-    }),
-    new winston.transports.File({
-      filename: "combined.log"
-    })
-  ]
-});
+const { logger } = require("../handlers/log");
+const moment = require("moment");
 
 module.exports = function(err, req, res, next) {
   logger.log({
     level: "error",
-    message: err.message
+    message: err.message,
+    date: moment().format("ddd, MMM DD YYYY, kk:mm:ss")
   });
 
   res
